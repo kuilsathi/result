@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><link rel="shortcut icon" href="https://kuilsathi.netlify.app/logo256.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Old Result | Kuil Sathi</title>
+  <style>
+    * {
+      font-family: Ubuntu;
+      border-radius: .5pc;
+      border-style: none;
+      transition: .5s;
+    }
+    body {
+      background-color: black;
+      color: #fff;
+    }
+    input[type=date] {
+      height: 3pc;
+      width: 15pc;
+      font-size: 1.7pc;
+      text-align: center;
+    }
+    select {
+      height: 3pc;
+      width: 15pc;
+      font-size: 1.7pc;
+      text-align: center;
+    }
+    .lableDiv {
+      height: 6pc;
+      width: 18pc;
+      font-size: 2pc;
+      background-color: #00ffff60;
+    }
+    button {
+      height: 3pc;
+      width: 7pc;
+      font-size: 1.5pc;
+    }
+    button:hover {
+      background-color: red;
+    }
+    #errorOfUsers {
+      font-size: 1.5pc;
+    }
+  </style>
+</head>
+<body>
+  <br><br><br><br>
+  <center>
+    <h1>
+      Kuil Sathi | Bhutan State <br>
+      Old Lottery Result
+    </h1>
+    <div class="lableDiv">
+      Date:
+      <br>
+      <input type="date">
+    </div>
+    <br>
+    <div class="lableDiv">
+      Time:
+      <br>
+      <select>
+        <option value="null" selected>Select</option>
+        <option value="1.30">1.30 PM</option>
+        <option value="8.30">8.30 PM</option>
+      </select>
+    </div>
+    <p id="errorOfUsers">
+      <span style="color:transparent;">-</span>
+    </p>
+    <a>
+      <button onclick="submitBtnClick();">Submit</button>
+    </a>
+  </center>
+  <script>
+    "use strict";
+    function userErrors(errors) {
+      document.querySelector("#errorOfUsers").textContent = errors;
+    }
+    function dateSetup() {
+      const date = document.querySelector("input[type=date]").value.split("-");
+      if (date.length === 3) {
+        const myDateFormat = +(date[2]) + "-" + +(date[1]) + "-" + +(date[0]);
+        return myDateFormat
+      }
+    }
+    function timeSetup() {
+      const timeChoice = document.querySelector("select").value;
+      if (timeChoice !== "null") {
+        return timeChoice;
+      }
+    }
+    function submitBtnClick() {
+      const myDateFormat = dateSetup();
+      const myTimeFormat = timeSetup();
+      if (!myDateFormat || !myTimeFormat) {
+        userErrors("Input is Not Valid");
+        document.querySelector("a").removeAttribute("href");
+      } else {
+        const url = myTimeFormat + "_" + myDateFormat + ".pdf";
+        document.querySelector("a").setAttribute("href", url);
+      }
+    }
+  </script>
+</body>
+</html>
